@@ -1,7 +1,16 @@
-IMPROVED KAIST Thesis Format in LaTeX
-=====================================
 
-With the original version of KAIST thesis format (Dissertation Template.zip, https://www.kaist.ac.kr/html/kr/edu/edu_03030309.html), one can choose between "draft" and "final" mode in the original version of KAIST thesis format (defiend by kaist-ucs.cls). However, the draft mode in the original format is quite impractical, because:
+**RE -** IMPROVED KAIST Thesis Format in LaTeX
+=====================================
+### Changelog
+
+- fix error with xcolor
+- translate the comments to english
+- replace input with include and add includeonly command to reduce compile time
+- fix hyperref errors
+- put department_names in seperate tex file
+----
+
+With the original version of KAIST thesis format [Dissertation Template.zip](https://kaist.gov-dooray.com/share/drive-files/kkmh2qu2awzo.q356MhkaQu-ehOPsoULKxA), one can choose between "draft" and "final" mode in the original version of KAIST thesis format (defiend by kaist-ucs.cls). However, the draft mode in the original format is quite impractical, because:
 * It does not display any images. Images are replaced by boxes and filenames in draft mode.
 * Even in draft mode, it prints too much unncessary information: table of contents, table of tables, table, of figures, acknowledgement, CV, etc.
 

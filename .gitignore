@@ -31,3 +31,6 @@
 LaTeX.zip
 !subjidx.ind
 *.sh
+
+output/*
+!output/.keep
