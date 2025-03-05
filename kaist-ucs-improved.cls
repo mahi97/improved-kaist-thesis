@@ -19,11 +19,11 @@
 %%
 %% Jong Mun Lee, modified according to the 2010 thesis format
 %% 2010/11/25
-%% 본 수정은 대학원학생회와 교무팀의 지원으로 진행되었습니다.
+%% This revision was carried out with the support of the Graduate Student Council and the Academic Affairs Office.
 %%
 %% Jin Hyun Ahn, modified according to the 2016 thesis format
 %% 2016/04/08
-%% 교무팀의 지원을 받아 송익호 교수님 연구실에서 수정하였습니다.
+%% Modified at Professor Song Ik-ho's lab with the support of the Academic Affairs Office.
 %% 2016/11/24
 %% Min H. Kim, Professor at School of Computing, revised this template to fix several bugs, including the MS degree title in School of Computing, English date formats, etc.
 
@@ -31,14 +31,14 @@
 \ProvidesClass{kaist-ucs-improved}%
 [2008/10/21 v0.4 Standard KAIST Thesis document class, ko.TeX version]
 
-%% 옵션 설정을 위한 boolean 변수선언
+%% Declare boolean variables for option settings
 \newif\if@isDoctor
 \newif\if@isKorean
 \newif\if@isFinal
 \newif\if@PDFdoc\@PDFdocfalse
 \newif\if@dvips\@dvipsfalse
 
-%% 새 옵션 모음 - doctor|master, korean|english, final|draft
+%% New options collection - doctor|master, korean|english, final|draft
 \DeclareOption{doctor} {\@isDoctortrue}
 \DeclareOption{master} {\@isDoctorfalse}
 \DeclareOption{korean} {\@isKoreantrue}
@@ -48,24 +48,24 @@
 \DeclareOption{pdfdoc} {\@PDFdoctrue}
 \DeclareOption{dvips}  {\@dvipstrue}
 
-%% leqno,fleqn,openbib 옵션은 그대로 report 클래스에 전달
+%% Pass the leqno, fleqn, openbib options directly to the report class
 \DeclareOption{leqno}  {\PassOptionsToClass{leqno}  {report}}
 \DeclareOption{fleqn}  {\PassOptionsToClass{fleqn}  {report}}
 \DeclareOption{openbib}{\PassOptionsToClass{openbib}{report}}
 
-\ExecuteOptions{doctor,korean,final}         % doctor,korean,final이 기본값
+\ExecuteOptions{doctor,korean,final}         % doctor, korean, final are default values
 \ProcessOptions
 
-%% 10pt,a4paper,onecolumn,oneside 옵션으로 report 클래스 불러오기
+%% Load the report class with options: 10pt, a4paper, onecolumn, oneside
 \LoadClass[10pt,a4paper,onecolumn,oneside]{report}
 
 
 
-%%들여쓰기
+%% Indentation
 \usepackage{indentfirst}
 \setlength\parindent{2.0em}
 
-\RequirePackage{ifthen}       % 추가 패키지 설정
+\RequirePackage{ifthen}       % Additional package settings
 
 %%%% Hangul-ucs preamble.......
 \RequirePackage[nonfrench]{dhucs}
@@ -134,33 +134,33 @@ pdfpagelabels, %HOCHEOL MODIFIED
 \DeclareTextFontCommand{\textgt}{\gt}
 %%%% end of Hangul-ucs preamble
 
-\AtBeginDocument{%                           % \begin{document}와 함께 실행
-	\checkparameters                        % 문서 변수가 올바른지 점검
-	\if@isFinal                             % final 옵션이 지정되어 있으면
-	\makefrontcover \maketitle         % 앞표지, 속표지 생성
-	\makeapproval                      % 제출승인서, 심사완료검인 생성
+\AtBeginDocument{%                           % Execute at \begin{document}
+	\checkparameters                        % Check if document variables are correct
+	\if@isFinal                             % If final option is set
+	\makefrontcover \maketitle         % Generate front cover and inside cover
+	\makeapproval                      % Generate submission approval and review approval forms
 	\else \fi }
-\AtEndDocument{}                             % \end{document}와 함께 실행
+\AtEndDocument{}                             % Execute at \end{document}
 
-%% 편집용지 설정
+%% Set the page margins for printing
 \usepackage[left=25.4mm,right=25.4mm,top=30mm,bottom=25.4mm,a4paper]{geometry}
 
 
-%% 줄간격 설정
+%% Set line spacing
 %\renewcommand{\baselinestretch}{1.3}
 \linespread{1.3}
 
-%% 본문이 영어로 되어있는지 한글로 되어있는지 설정
+%% Set whether the main text is in English or Korean
 \newcommand{\@korean}{korean}
 \newcommand{\@english}{english}
-\newcommand{\@textlang}{}                    % 텍스트 기본언어 변수선언
-\if@isKorean                                 % korean 옵션이 지정되어 있으면
-\let\@textlang\@korean                  % 텍스트 기본언어는 한글
-\else                                        % english 옵션이 지정되어 있으면
-\let\@textlang\@english                 % 텍스트 기본언어는 영문
+\newcommand{\@textlang}{}                    % Declare default text language variable
+\if@isKorean                                 % If the korean option is set
+\let\@textlang\@korean                  % Default text language is Korean
+\else                                        % If the english option is set
+\let\@textlang\@english                 % Default text language is English
 \fi
 
-%% KAIST 공식 영문명칭
+%% KAIST official English name
 \newcommand{\@kaist}{Korea Advanced Institute of Science and Technology}
 
 %% pagestyle
@@ -174,12 +174,12 @@ pdfpagelabels, %HOCHEOL MODIFIED
 \pagestyle{kaist}
 
 %%
-%% 문서 정보 변수 정의
+%% Define document information variables
 %%
 
-% @command title 논문 제목
+% @command title Thesis title
 % @options [default: (none)]
-% - korean: 한글제목 | english: 영문제목
+% - korean: Korean title | english: English title
 \renewcommand{\title}[2][korean] {%
 	\ifthenelse{\equal{#1}{korean}}%
 	{\newcommand{\@titleKor}{#2}}{}%
@@ -188,10 +188,10 @@ pdfpagelabels, %HOCHEOL MODIFIED
 }
 \@onlypreamble{\title}
 
-% @command author 저자 이름
-% @param family_name, given_name 성, 이름을 구분해서 입력
+% @command author Author name
+% @param family_name, given_name Enter last name and first name separately
 % @options [default: (none)]
-% - korean: 한글이름 | chinese: 한문이름 | english: 영문이름
+% - korean: Korean name | chinese: Chinese name | english: English name
 \renewcommand{\author}[3][korean] {%
 	\ifthenelse{\equal{#1}{korean}}
 	{\newcommand{\@authorKorFN}{#2}
@@ -213,53 +213,53 @@ pdfpagelabels, %HOCHEOL MODIFIED
 
 \@onlypreamble{\author}
 
-% @command advisor 지도교수 이름 (복수가능)
+% @command advisor Advisor's name (multiple allowed)
 % @options [default: major]
-% - major: 주 지도교수  | coopr: 부 지도교수 (공동지도교수 경우)
+% - major: Main advisor  | coopr: Co-advisor (in case of joint advisors)
 \newcommand{\advisor}[4][major]{%
-	\ifthenelse{\equal{#1}{major}} {%       % 주 지도교수이면
-		\newcommand{\@advisorMajorKor}{#2} % 한글이름 저장
-		\newcommand{\@advisorMajorEng}{#3} % 영문이름 저장
-		% nosign을 명시하지 않으면 주 지도교수가 서명한 것으로 간주
+	\ifthenelse{\equal{#1}{major}} {%       % If main advisor
+		\newcommand{\@advisorMajorKor}{#2} % Save Korean name
+		\newcommand{\@advisorMajorEng}{#3} % Save English name
+		% If "nosign" is not specified, the main advisor is considered to have signed
 		\ifthenelse{\equal{#4}{nosign}}{}{%
 			\newcommand{\@advisorSigned}{\@advisorMajorEng}} }{}%
-	\ifthenelse{\equal{#1}{major2}} {%       % 주 지도교수이면
-		\newcommand{\@advisorMajorKorCont}{#2} % 한글이름 저장
-		\newcommand{\@advisorMajorEngCont}{#3} % 영문이름 저장
-		% nosign을 명시하지 않으면 주 지도교수가 서명한 것으로 간주
+	\ifthenelse{\equal{#1}{major2}} {%       % If main advisor (alternative)
+		\newcommand{\@advisorMajorKorCont}{#2} % Save Korean name
+		\newcommand{\@advisorMajorEngCont}{#3} % Save English name
+		% If "nosign" is not specified, the main advisor is considered to have signed
 		\ifthenelse{\equal{#4}{nosign}}{}{%
 			\newcommand{\@advisorSignedCont}{\@advisorMajorEngCont}} }{}%
-	\ifthenelse{\equal{#1}{coopr}} {%       % 부 지도교수이면
-		\newcommand{\@advisorCooprKor}{#2} % 한글이름 저장
-		\newcommand{\@advisorCooprEng}{#3} % 영문이름 저장
-		% signed를 명시해야 부 지도교수가 서명한 것으로 간주
+	\ifthenelse{\equal{#1}{coopr}} {%       % If co-advisor
+		\newcommand{\@advisorCooprKor}{#2} % Save Korean name
+		\newcommand{\@advisorCooprEng}{#3} % Save English name
+		% Co-advisor is considered to have signed only if "signed" is specified
 		\ifthenelse{\equal{#4}{signed}}{%
 			\newcommand{\@advisorSigned}{\@advisorCooprEng}}{} }{}%
-	\ifthenelse{\equal{#1}{coopr2}} {%       % 부 지도교수이면
-		\newcommand{\@advisorCooprKorCont}{#2} % 한글이름 저장
-		\newcommand{\@advisorCooprEngCont}{#3} % 영문이름 저장
-		% signed를 명시해야 부 지도교수가 서명한 것으로 간주
+	\ifthenelse{\equal{#1}{coopr2}} {%       % If co-advisor (alternative)
+		\newcommand{\@advisorCooprKorCont}{#2} % Save Korean name
+		\newcommand{\@advisorCooprEngCont}{#3} % Save English name
+		% Co-advisor is considered to have signed only if "signed" is specified
 		\ifthenelse{\equal{#4}{signed}}{%
 			\newcommand{\@advisorSignedCont}{\@advisorCooprEngCont}}{} }{}%            
 }
 \@onlypreamble{\advisor}
 
-%% 제출승인서에 들어가는 교수님 정보 명령
+%% Command for professor information on the submission approval form
 \newcommand{\advisorinfo}[1]{\newcommand{\@advisorinfo}{#1}}
 
 % @command department 
 %
-\newcommand{\@degreeCode}{}          % 학위 영문코드
-\newcommand{\@degreeName}{}          % 학위명
-\newcommand{\@degreeversion}{}       % 학과 표현 종류
-\newcommand{\@parentDeptNameKor}{}      % 학과/전공 첫째줄
-\newcommand{\@childDeptNameKor}{}       % 학과/전공 둘째줄
-\newcommand{\@parentDeptNameEng}{}      % 학과/전공 첫째줄
-\newcommand{\@childDeptNameEng}{}       % 학과/전공 둘째줄
-\newcommand{\@affFullNameKor}{}      % 학과/전공 한글이름
-\newcommand{\@affFullNameEng}{}      % 학과/전공 영문이름
-\newcommand{\@parentAcademNameEng}{} % 학문 영문이름 첫째줄
-\newcommand{\@childAcademNameEng}{} % 학문 영문이름 둘째줄
+\newcommand{\@degreeCode}{}          % Degree English code
+\newcommand{\@degreeName}{}          % Degree name
+\newcommand{\@degreeversion}{}       % Department version
+\newcommand{\@parentDeptNameKor}{}      % Department/Major, first line (Korean)
+\newcommand{\@childDeptNameKor}{}       % Department/Major, second line (Korean)
+\newcommand{\@parentDeptNameEng}{}      % Department/Major, first line (English)
+\newcommand{\@childDeptNameEng}{}       % Department/Major, second line (English)
+\newcommand{\@affFullNameKor}{}      % Full department/major name in Korean
+\newcommand{\@affFullNameEng}{}      % Full department/major name in English
+\newcommand{\@parentAcademNameEng}{} % Academic unit name, first line in English
+\newcommand{\@childAcademNameEng}{} % Academic unit name, second line in English
 \newcommand{\@appFullAcademName}{}
 \newcommand{\@degreeField}{}
 \newcommand{\@degreePrefix}{\ifthenelse{\boolean{@isDoctor}}{D}{M}}
@@ -268,11 +268,11 @@ pdfpagelabels, %HOCHEOL MODIFIED
 \input{department_names}
 
 
-% @command studentid 학번
+% @command studentid Student ID
 \newcommand{\studentid}[1]{\newcommand{\@studentID}{#1}}
 \@onlypreamble{\studentid}
 
-% @command referee 심사위원 (석사과정 3인, 박사과정 5인)
+% @command referee Reviewer (3 for master's, 5 for doctoral)
 \newcommand{\referee}[2][1] {%
 	\ifthenelse{\equal{#1}{1}}{\newcommand{\@refereeChief} {#2}} {}%
 	\ifthenelse{\equal{#1}{2}}{\newcommand{\@refereeSecond}{#2}} {}%
@@ -282,8 +282,8 @@ pdfpagelabels, %HOCHEOL MODIFIED
 }
 \@onlypreamble{\referee}
 
-% @command approvaldate 지도교수논문승인일
-% @param year,month,day 연,월,일 순으로 입력
+% @command approvaldate Advisor approval date for thesis
+% @param year,month,day Enter year, month, day in order
 \newcommand{\approvaldate}[3] {%
 	\newcommand{\@approvalYear}{#1}
 	\newcommand{\@approvalMonth}{#2}
@@ -291,8 +291,8 @@ pdfpagelabels, %HOCHEOL MODIFIED
 }
 \@onlypreamble{\approvaldate}
 
-% @command refereedate 심사위원논문심사일
-% @param year,month,day 연,월,일 순으로 입력
+% @command refereedate Review date by the examiners
+% @param year,month,day Enter year, month, day in order
 \newcommand{\refereedate}[3] {%
 	\newcommand{\@refereeYear}{#1}
 	\newcommand{\@refereeMonth}{#2}
@@ -300,12 +300,12 @@ pdfpagelabels, %HOCHEOL MODIFIED
 }
 \@onlypreamble{\refereedate}
 
-% @command gradyear 졸업년도
+% @command gradyear Graduation year
 \newcommand{\gradyear}[1]{\newcommand{\@gradYear}{#1}}
 \@onlypreamble{\gradyear}
 
 %%
-%% 필요한 정보 중에 누락된 것이 없는지 점검 --> 제작중. 아직 불완전. 그대로 놔둠
+%% Check if any necessary information is missing --> Under development. Still incomplete. Leave as is.
 %%
 \newcommand{\checkparameters}{%
 	\@ifundefined{@titleKor}{%
@@ -325,7 +325,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 }
 
 %%
-%% 앞표지 생성
+%% Generate front cover
 %% Don't change size of letters.
 \newcommand{\makefrontcover}{%
 	\renewcommand{\baselinestretch}{1.3}%
@@ -366,8 +366,8 @@ pdfpagelabels, %HOCHEOL MODIFIED
 }
 
 %%
-%% 속표지 생성
-%%  Don't change size of letters.
+%% Generate inside cover
+%% Don't change size of letters.
 \renewcommand{\maketitle}{%
 	\thispagestyle{empty} \noindent 
 	\renewcommand{\baselinestretch}{1.3}%
@@ -403,16 +403,13 @@ pdfpagelabels, %HOCHEOL MODIFIED
 } 
 
 %%
-%% 학위논문 심사완료 검인서 및 제출승인서 생성
-%%  Don't change size of letters.
-
-
-
-\newcommand{\makeapproval}{%% 학위논문 심사완료 검인서
+%% Generate thesis review approval sheet and submission approval form
+%% Don't change size of letters.
+\newcommand{\makeapproval}{%% Thesis review approval sheet
 	\thispagestyle{empty} \noindent
 	\begin{minipage}[c][80mm][c]{\textwidth}
 		\begin{center}
-			\fontsize{21pt}{21pt}\selectfont \@titleKor \\          % 학위논문 한글제목
+			\fontsize{21pt}{21pt}\selectfont \@titleKor \\          % Thesis title in Korean
 		\end{center}
 	\end{minipage}\\[-10mm]
 	\begin{minipage}[c][0mm][c]{\textwidth}
@@ -420,14 +417,14 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\fontsize{16pt}{16pt}\selectfont
 			\ifthenelse{\equal{\@authorKorFN}{}}
 			{\@authorEng}
-			{\@authorKor}  % 저자 한글이름
+			{\@authorKor}  % Author's Korean name
 		\end{center}
 	\end{minipage}\\[0mm]
 	\begin{minipage}[c][60mm][c]{\textwidth}
 		\begin{center}
-			\fontsize{16pt}{16pt}\selectfont 위 논문은 한국과학기술원
-			\ifthenelse{\boolean{@isDoctor}}{박사}{석사}학위논문으로\linebreak
-			학위논문 심사위원회의 심사를 통과하였음
+			\fontsize{16pt}{16pt}\selectfont The thesis submitted to Korea Advanced Institute of Science and Technology
+			\ifthenelse{\boolean{@isDoctor}}{as a Ph.D. dissertation}{as a Master's thesis}\linebreak
+			has been approved by the thesis review committee.
 		\end{center}
 	\end{minipage}\\[13mm]
 	\begin{minipage}[t][20mm][b]{\textwidth}
@@ -436,7 +433,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			%\begin{flushright}
 			
 			\begin{tabular}{rcl}
-				% 심사위원명단 \hspace*{15mm} \hspace*{15mm}
+				% (e.g., TOC, LOT, LOF generation)
 				\multicolumn{3}{c}{\fontsize{16pt}{16pt}\selectfont \@refereeYear 년 \@refereeMonth 월 \@refereeDay 일 }\mbox{\ }
 				\@ifundefined{@refereeChief}{}
 				{\\[30pt] \fontsize{16pt}{16pt}\selectfont심사위원장 & \ \makebox[\width][r]{\fontsize{16pt}{16pt}\selectfont\@refereeChief} & \ \makebox[\width][r]{\fontsize{16pt}{16pt}\selectfont (인)} }
@@ -454,7 +451,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 	\end{minipage} 
 	\newpage
 	\renewcommand{\baselinestretch}{1.3}
-	\hyphenation{institute department division program} % word division 방지
+	\hyphenation{institute department division program} % Prevent word division
 	\thispagestyle{empty} \noindent
 	\begin{minipage}[c][30mm][c]{\textwidth}
 		\begin{center}
@@ -472,11 +469,11 @@ pdfpagelabels, %HOCHEOL MODIFIED
 	\begin{minipage}[c][8mm][c]{\textwidth}
 		\begin{center}
 			\fontsize{14pt}{14pt}\selectfont
-			\begin{tabular}{lcl}             % 학위논문 지도교수 영문이름
+			\begin{tabular}{lcl}             % Thesis advisor's name in English
 				\@ifundefined{@advisorCooprEng}
-				% 단독지도교수이면 Advisor 하나만 출력
+				% If sole advisor, print only Advisor
 				{Advisor:&&\hspace{-0.8cm} \@advisorMajorEng}
-				% 공동지도교수이면 Major,Co-Advisor 둘 다 출력
+				% If joint advisors, print both Major Advisor and Co-Advisor
 				{Major Advisor:&&\hspace{-0.8cm} \@advisorMajorEng \\
 					Co-Advisor:&&\hspace{-0.8cm} \@advisorCooprEng}
 			\end{tabular} \vfill
@@ -500,19 +497,16 @@ pdfpagelabels, %HOCHEOL MODIFIED
 		\begin{center}
 			\fontsize{14pt}{14pt}\selectfont \noindent
 			Daejeon, Korea\\
-%			\@approvalYear.~\@approvalMonth.~\@approvalDay.\\[24pt] % 제출승인일자 format: 2016.11.25
-       \@dateUSenglish{\@approvalYear}{\@approvalMonth}{\@approvalDay} \\[24pt] % 제출승인일자 format: June 2, 2016
+%			\@approvalYear.~\@approvalMonth.~\@approvalDay.\\[24pt] % Submission approval date format: 2016.11.25
+       \@dateUSenglish{\@approvalYear}{\@approvalMonth}{\@approvalDay} \\[24pt] % Submission approval date format: June 2, 2016
 			Approved by \\
-			% 단독 또는 주 지도교수가 서명하면 Major-,  부 지도교수가 서명하면 Co-
-			%    \@ifundefined{@advisorCooprEng}{[Advisor]}%
-			%            {\ifthenelse{\equal{\@advisorSigned}{\@advisorMajorEng}}%
-			%                {[Major Advisor]}{[Co-Advisor]}} \\
+			% If sole or main advisor signed, print as Major Advisor; if co-advisor signed, print as Co-Advisor
 			[0pt]
 			\vspace*{18mm}
 			
 			\makebox[.5\textwidth][r]{\hrulefill}\\
-			\fontsize{14pt}{14pt}\selectfont \@advisorSigned \\          % 제출승인서에 서명한 교수이름
-			\fontsize{14pt}{14pt}\selectfont \@advisorinfo  % 제출승인서에 서명한 교수님 정보 
+			\fontsize{14pt}{14pt}\selectfont \@advisorSigned \\          % Professor's name who signed the submission approval form
+			\fontsize{14pt}{14pt}\selectfont \@advisorinfo  % Professor's information on the submission approval form 
 			\vspace*{20mm}
 			\\
 			\fontsize{12pt}{12pt}\selectfont The study was conducted in accordance with Code of Research Ethics\footnotemark[1].
@@ -530,53 +524,53 @@ pdfpagelabels, %HOCHEOL MODIFIED
 
 
 %%
-%% 한글 초록과 영문 초록, 논문서지(Korean summary and abstract) 페이지 생성
-%%  Don't change size of letters. 
-\newcounter{pagemarker}                           % 페이지 번호 임시 저장용
-\newcommand{\@lastPage}{\pageref{paperlastpagelabel}} % 총 페이지 수 계산용
-\newcommand{\@lastRomanPage}{\pageref{paperlastromanpagelabel}} % 총 로마자 페이지 수 계산용
+%% Generate Korean summary and English abstract, and thesis bibliography page
+%% Don't change size of letters. 
+\newcounter{pagemarker}                           % Temporary storage for page numbers
+\newcommand{\@lastPage}{\pageref{paperlastpagelabel}} % Used for calculating total page count
+\newcommand{\@lastRomanPage}{\pageref{paperlastromanpagelabel}} % Used for calculating total Roman numeral page count
 
 \newcommand{\thesisinfo}{
 	\pagenumbering{gobble} %This suppresses page numbering
 	\pagestyle{plain}%
-	\newcommand{\@tempbreak}{}                   % \linebreak 명령 보관용
+	\newcommand{\@tempbreak}{}                   % To store the \linebreak command
 	\let\@tempbreak\linebreak
-	\renewcommand{\linebreak}{\ }                % \linebreak -> 공백 대체
+	\renewcommand{\linebreak}{\ }                % Replace \linebreak with a space
 	\newlength{\@thesisinfowidth}
-	\setlength{\@thesisinfowidth}{\textwidth}    % 논문정보박스 사이즈는
-	\addtolength{\@thesisinfowidth}{-30mm}       % 텍스트 폭보다 30mm 작게 
+	\setlength{\@thesisinfowidth}{\textwidth}    % Set thesis information box width
+	\addtolength{\@thesisinfowidth}{-30mm}       % 30mm less than the text width
 	\noindent
 	\parbox[t]{30mm}{\fontsize{14pt}{14pt} \textsf{\@degreeCode \\ \@studentID}}
 	\raisebox{3pt}{\begin{minipage}[t]{\@thesisinfowidth}
 			\fontsize{12pt}{12pt} \selectfont \sffamily
 			\ifthenelse{\equal{\@authorKorFN}{}}
 			{}
-			{\@authorKorCont.}           % 저자 한글이름
-			\@titleKor.                 % 학위논문 한글제목
-			\@affFullNameKor .      % 학과/전공 한글이름
-			\@gradYear 년.           % 졸업년도
-			\@lastPage+\@lastRomanPage~쪽.                           % 총 페이지 수 -> 참고문헌 끝
-			\@ifundefined{@advisorCooprEng}         % 공동지도교수 유무판정
-			{지도교수: \@advisorMajorKorCont.} % 단독지도교수 한글이름
-			{지도교수: \@advisorMajorKorCont, % 공동 주 지도교수 한글이름
-				~\@advisorCooprKorCont.}         % 공동 부 지도교수 한글이름
+			{\@authorKorCont.}           % Author's Korean name
+			\@titleKor.                 % Thesis title in Korean
+			\@affFullNameKor .      % Department/Major name in Korean
+			\@gradYear 년.           % Graduation year
+			\@lastPage+\@lastRomanPage~쪽.                           % Total page count -> end of bibliography
+			\@ifundefined{@advisorCooprEng}         % Check for co-advisor
+			{지도교수: \@advisorMajorKorCont.} % If sole advisor, print advisor's Korean name
+			{지도교수: \@advisorMajorKorCont, % If joint advisors, print both main and co-advisor's Korean names
+				~\@advisorCooprKorCont.}
 			\ifthenelse{\boolean{@isKorean}}
-			{(한글 논문)}{(영문 논문)} \\              % 본문이 영어인 경우 명시
-			\@authorEngGN~\@authorEngFN.           % 저자 영문이름
-			\@titleEng .                 % 학위논문 영문제목
-			\@affFullNameEng .     % 학과/전공 영문이름
-			\@gradYear .            % 졸업년도
-			\@lastPage+\@lastRomanPage~pages.                           % 총 페이지 수 -> 참고문헌 끝
-			\@ifundefined{@advisorCooprEng}         % 공동지도교수 유무판정
-			{Advisor: \@advisorMajorEng.} % 단독지도교수 영문이름
-			{Advisor: \@advisorMajorEng, % 공동 주 지도교수 영문이름
-				~\@advisorCooprEng.}         % 공동 부 지도교수 영문이름
+			{(한글 논문)}{(영문 논문)} \\              % Indicate if the thesis is in Korean or English
+			\@authorEngGN~\@authorEngFN.           % Author's English name
+			\@titleEng .                 % Thesis title in English
+			\@affFullNameEng .     % Department/Major name in English
+			\@gradYear .            % Graduation year
+			\@lastPage+\@lastRomanPage~pages.                           % Total page count -> end of bibliography
+			\@ifundefined{@advisorCooprEng}         % Check for co-advisor
+			{Advisor: \@advisorMajorEng.} % If sole advisor, print advisor's English name
+			{Advisor: \@advisorMajorEng, % If joint advisors, print both main and co-advisor's English names
+				~\@advisorCooprEng.}
 			\ifthenelse{\boolean{@isKorean}}
-			{(Text in Korean)}{(Text in English)}               % 본문이 한글인 경우 명시
+			{(Text in Korean)}{(Text in English)}               % Specify if the main text is in Korean or English
 		\end{minipage}}\\[16pt] \if@PDFdoc\phantomsection\fi}
 	
 	%%
-	%% 한글요약문 생성 - 영문논문의 경우만 해당
+	%% Generate Korean abstract - applicable only for English theses
 	%%
 	\newenvironment{summary}{
 		\noindent\underline{\textbf{초 록}} 
@@ -584,8 +578,8 @@ pdfpagelabels, %HOCHEOL MODIFIED
 		\\
 	}{}
 	
-	\newcommand{\summarykorean}{%           % ver 0.1 요약문 생성 명령
-		\renewcommand{\linebreak}{\ }      % 차후 버젼에서 삭제 예정
+	\newcommand{\summarykorean}{%           % ver 0.1 Command for generating summary
+		\renewcommand{\linebreak}{\ }      % Will be removed in a future version
 		\ifx\@textlang\@english
 		\chapter*{요 약 문}
 		\begin{center}
@@ -595,26 +589,26 @@ pdfpagelabels, %HOCHEOL MODIFIED
 	}{}
 	
 	%%
-	%% 핵심 낱말 생성
+	%% Generate keywords
 	%%
 	\newenvironment{Korkeyword}{\vspace*{3mm}
 		\noindent \underline{\textbf{핵 심 낱 말}} }{}
 	
 	%%
-	%% 논문초록 생성
+	%% Generate thesis abstract
 	%%
 	\renewenvironment{abstract}{\vspace*{9mm} 
-		\noindent\underline{\textbf{Abstract}}    % 초록명 -> Abstract
+		\noindent\underline{\textbf{Abstract}}    % Abstract title -> Abstract
 		\\
 	}{
 }
 
 %%
-%% Keyword 생성
+%% Generate Keywords
 %%
 \newenvironment{Engkeyword}{\vspace*{3mm}  
 	\noindent\underline{\textbf{Keywords}}}
-{\let\linebreak\@tempbreak          % \linebreak 명령 되돌리기
+{\let\linebreak\@tempbreak          % Restore the \linebreak command
 }
 
 
@@ -623,11 +617,11 @@ pdfpagelabels, %HOCHEOL MODIFIED
 
 
 %%
-%% 목차 일괄 생성
+%% Generate table of contents (TOC), list of tables (LOT), and list of figures (LOF) all at once
 %%
-\newcommand{\makecontents}{%        가    % TOC, LOT, LOF 생성
-	\setcounter{pagemarker}{\value{page}}        % 마지막 페이지 번호를 저장
-	\pagenumbering{roman}                        % 로마자 페이지 시작
+\newcommand{\makecontents}{%         (e.g., TOC, LOT, LOF generation)
+	\setcounter{pagemarker}{\value{page}}        % Save the last page number
+	\pagenumbering{roman}                        % Start Roman numeral page numbering
 	\tableofcontents
 	\listoftables
 	\listoffigures}
@@ -636,40 +630,40 @@ pdfpagelabels, %HOCHEOL MODIFIED
 
 
 %%
-%% 사사 및 이력서 생성
+%% Generate acknowledgments and curriculum vitae (CV)
 %%
 
-\newcommand{\acknowledgment}[1][default]{%     % 사사
+\newcommand{\acknowledgment}[1][default]{%     % Acknowledgments
 	\newcommand{\@acklang}{#1}
 	\ifthenelse{\equal{\@acklang}{1}}
-	{\chapter*{사 사} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{사 사}}{}                 % 본문과 사사가 둘 다 한글일 때
+	{\chapter*{사 사} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{사 사}}{}                 % When both the main text and acknowledgments are in Korean
 	\ifthenelse{\equal{\@acklang}{2}}
-	{\chapter*{영 문 사 사} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{영 문 사 사}}{}         % 본문은 한글인데 사사가 영어일 때
+	{\chapter*{영 문 사 사} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{영 문 사 사}}{}         % When the main text is in Korean but acknowledgments are in English
 	\ifthenelse{\equal{\@acklang}{3}}
-	{\chapter*{Acknowledgment} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{Acknowledgments}}{}        % 본문과 사사가 둘 다 영어일 때 
+	{\chapter*{Acknowledgment} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{Acknowledgments}}{}        % When both the main text and acknowledgments are in English 
 	\ifthenelse{\equal{\@acklang}{4}}
-	{\chapter*{Acknowledgments in Korean} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{Acknowledgments in Korean}}{}\noindent}         % 본문은 영어인데 사사가 한글일 때 
+	{\chapter*{Acknowledgments in Korean} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{Acknowledgments in Korean}}{}\noindent}         % When the main text is in English but acknowledgments are in Korean
 
-\newcommand{\curriculumvitae}[1][default]{%     % 약력
+\newcommand{\curriculumvitae}[1][default]{%     % Curriculum Vitae
 	\newcommand{\@ccvlang}{#1}
 	\ifthenelse{\equal{\@ccvlang}{1}}
-	{\chapter*{약 력} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{약 력}}{}                 % 본문과 약력이 둘 다 한글일 때
+	{\chapter*{약 력} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{약 력}}{}                 % When both the main text and CV are in Korean
 	
 	\ifthenelse{\equal{\@ccvlang}{2}}
-	{\chapter*{영 문 약 력} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{영 문 약 력}}{}         % 본문은 한글인데 약력이 영어일 때
+	{\chapter*{영 문 약 력} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{영 문 약 력}}{}         % When the main text is in Korean but the CV is in English
 	
 	\ifthenelse{\equal{\@ccvlang}{3}}
-	{\chapter*{Curriculum Vitae} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{Curriculum Vitae}}{}        % 본문과 약력이 둘 다 영어일 때 
+	{\chapter*{Curriculum Vitae} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{Curriculum Vitae}}{}        % When both the main text and CV are in English 
 	\ifthenelse{\equal{\@ccvlang}{4}}
-	{\chapter*{Curriculum Vitae in Korean} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{Curriculum Vitae in Korean}}{}}% 본문은 영어인데 약력이 한글일 때
+	{\chapter*{Curriculum Vitae in Korean} \if@PDFdoc\phantomsection\fi\addcontentsline{toc}{chapter}{Curriculum Vitae in Korean}}{}}% When the main text is in English but the CV is in Korean
 
 
 %%
-%% 이력서 내부 요소 생성
+%% Generate CV internal elements
 %%
 
 
-\newenvironment{personaldata}{%            % 개인정보
+\newenvironment{personaldata}{%            % Personal information
 	
 	\begin{list}{}{%
 			\setlength{\labelwidth}{70pt}
@@ -677,7 +671,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\addtolength{\leftmargin}{\labelsep}
 			\setlength{\parsep}{0pt}
 			\renewcommand{\makelabel}[1]{\textgt{##1:\ }}}
-		\newcommand{\name}[1]{%               % 이름
+		\newcommand{\name}[1]{%               % Name
 			\ifthenelse{\equal{\@ccvlang}{1}}
 			{\def\@arg{[이\hfill름]}}{}
 			\ifthenelse{\equal{\@ccvlang}{4}}
@@ -688,7 +682,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			{\def\@arg{[Name\hfill]}}{}
 			\expandafter\item\@arg ##1}
 		
-		\newcommand{\dateofbirth}[3]{%        % 생년월일
+		\newcommand{\dateofbirth}[3]{%        % Date of birth
 			\ifthenelse{\equal{\@ccvlang}{1}}
 			{\def\@arg{[생\hfill년\hfill월\hfill일]}
 				\expandafter\item\@arg ##1년 ##2월 ##3일}{}
@@ -704,7 +698,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			}{}
 		}
 		
-		\newcommand{\birthplace}[1]{%         % 출생지
+		\newcommand{\birthplace}[1]{%         % Place of birth
 			\ifthenelse{\equal{\@ccvlang}{1}}
 			{\def\@arg{[출\hfill생\hfill지]}}{}
 			\ifthenelse{\equal{\@ccvlang}{4}}
@@ -715,7 +709,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			{\def\@arg{[Birthplace\hfill]}}{}
 			\expandafter\item\@arg ##1}
 		
-		%%       \newcommand{\domicile}[1]{%           % 본적지
+		%%       \newcommand{\domicile}[1]{%           % Place of origin
 		%%\ifthenelse{\equal{\@ccvlang}{1}}
 		%%            {\def\@arg{[본\hfill적\hfill지]}}{}
 		%% \ifthenelse{\equal{\@ccvlang}{4}}
@@ -728,7 +722,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 		%%     \expandafter\item\@arg ##1}
 		
 		
-		\newcommand{\address}[1]{%            % 주소지
+		\newcommand{\address}[1]{%            % Address
 			\ifthenelse{\equal{\@ccvlang}{1}}
 			{\def\@arg{[주\hfill소]}}{}
 			\ifthenelse{\equal{\@ccvlang}{4}}
@@ -755,21 +749,10 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\expandafter\item\@arg ##1}
 		
 		
-		%이력서에 집어넣을 추가 필드가 필요하면 위를 참고하여 만들어 쓸 것.
-		%\newcommand{(필드명령)}[1]{%
-		%  \ifthenelse{\equal{\@ccvlang}{1}}
-		%        {\def\@arg{[한글 필드 이름]}}{}
-		%   \ifthenelse{\equal{\@ccvlang}{4}}
-		%        {\def\@arg{[한글 필드 이름]}}{}
-		%   \ifthenelse{\equal{\@ccvlang}{2}}
-		%     {\def\@arg{[영어 필드 이름]}}{}
-		%      
-		%    \ifthenelse{\equal{\@ccvlang}{3}}
-		%        {\def\@arg{[영어 필드 이름]}}{}
-		%         \expandafter\item\@arg ##1}
+		% If additional fields are needed for the CV, refer to the above for guidance.
 	}{\end{list}}
 
-\newenvironment{education}{%               % 학력
+\newenvironment{education}{%               % Education
 	
 	\vspace*{5mm} \noindent
 	
@@ -797,7 +780,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\renewcommand{\makelabel}[1]{\textgt{##1\hfill\ }}}
 	}{\end{list}}
 
-\newenvironment{career}{%                  % 경력
+\newenvironment{career}{%                  % Career
 	
 	\vspace*{5mm} \noindent
 	
@@ -828,7 +811,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 
 \newcounter{itemnum1}
 
-\newenvironment{activity}{%                % 학회활동
+\newenvironment{activity}{%                % Academic activities
   
         \vspace*{5mm} \noindent
         
@@ -864,8 +847,8 @@ pdfpagelabels, %HOCHEOL MODIFIED
 
 \newcounter{itemnum2}
 
-\newenvironment{publication}{%             % 연구업적
-	
+\newenvironment{publication}{%             % Research achievements
+	 
 	\vspace*{5mm} \noindent
 	
 	\ifthenelse{\equal{\@ccvlang}{1}}{
@@ -898,7 +881,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 		\end{list}}
 		
 		%%
-		%% 헤딩 재설정
+		%% Reset headings
 		%%
 		\renewcommand{\contentsname}{
 			\if@isKorean 차 례        \else Contents        \fi}
@@ -915,7 +898,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 		\renewcommand{\tablename}{
 			\if@isKorean 표 \else Table      \fi}
 		%%
-		%% \part 재정의 - 아예 쓰지 못하게 막아버림. 이 명령을 호출하면 에러 발생.
+		%% Redefine \part - completely disable its usage. Calling this command will produce an error.
 		%%
 		\renewcommand\part{%
 			\secdef\@part\@spart}
@@ -930,14 +913,14 @@ pdfpagelabels, %HOCHEOL MODIFIED
 		
 		
 		%%
-		%% \chapter 재정의 - report 클래스로부터 복사하여 일부 수정
+		%% Redefine \chapter - copied from the report class and partially modified
 		%%
 		\renewcommand\chapter{%
 			\if@openright\cleardoublepage\else\clearpage\fi
 			%   \thispagestyle{plain}%
 			\global\@topnum\z@
 			\@afterindentfalse
-			%   \if@isKorean \parindent\z@ \else \fi % <-- 추가할지 여부 고민중
+			%   \if@isKorean \parindent\z@ \else \fi % <-- To consider adding this for Korean
 			\secdef\@chapter\@schapter}
 		\def\@chapter[#1]#2{%
 			\ifnum \c@secnumdepth >\m@ne
@@ -949,7 +932,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 				\else
 				\protect\numberline{Chapter \thechapter.}#1
 				\fi
-			}% <-- 목차에 나타나는 형식 - 변경사항
+			}% <-- Format in the table of contents - modifications
 			\else
 			\addcontentsline{toc}{chapter}{#1}%
 			\fi
@@ -963,7 +946,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\@afterheading%
 			\fi
 		}
-		\def\@makechapterhead#1{% <-- 전체 변경
+		\def\@makechapterhead#1{% <-- Completely modified
 			\vspace*{10\p@}
 			{\centering \parindent\z@ \fontsize{14pt}{14pt}\selectfont \bfseries
 				\ifthenelse{\equal{\@textlang}{korean}}
@@ -979,14 +962,14 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\@makeschapterhead{#1}%
 			\@afterheading
 			\fi}
-		\def\@makeschapterhead#1{% <-- 전체 변경
+		\def\@makeschapterhead#1{% <-- Completely modified
 			\vspace*{10\p@}
 			{\centering \parindent\z@ \fontsize{14pt}{14pt}\selectfont \bfseries #1\par}
 			\vspace*{20\p@}
 		}
 		
 		%%
-		%% \tableofcontents 재정의 - report 클래스로부터 복사하여 일부 수정
+		%% Redefine \tableofcontents - copied from the report class and partially modified
 		%%
 		\renewcommand\tableofcontents{%
 			\thispagestyle{plain}
@@ -997,17 +980,17 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\fi
 			\chapter*{\contentsname
 				\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
-			\pagenumbering{roman}                         % roman 페이지번호로 복원
-			\setcounter{page}{\value{pagemarker}}         % pagemarker에 저장된 값으로
-			\if@PDFdoc\phantomsection\fi\addcontentsline{toc}{content}{\contentsname} % 목차(TOC)에 추가
+			\pagenumbering{roman}                         % Restore to Roman numeral page numbering
+			\setcounter{page}{\value{pagemarker}}         % Set page counter using the value stored in pagemarker
+			\if@PDFdoc\phantomsection\fi\addcontentsline{toc}{content}{\contentsname} % Add to table of contents (TOC)
 			\@starttoc{toc}%
 			\if@restonecol\twocolumn\fi
-			\newpage \setcounter{pagemarker}{\value{page}}% pagemarker에 다시 저장
-			\pagenumbering{arabic}                        % arabic 페이지번호로 재시작
+			\newpage \setcounter{pagemarker}{\value{page}}% Store the page number again in pagemarker
+			\pagenumbering{arabic}                        % Restart page numbering in Arabic numerals
 		}
 		
 		%%
-		%% \listoftables 재정의 - report 클래스로부터 복사하여 일부 수정
+		%% Redefine \listoftables - copied from the report class and partially modified
 		%%
 		\renewcommand\listoftables{%
 			\thispagestyle{plain}
@@ -1018,17 +1001,17 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\fi
 			\chapter*{\listtablename}%
 			\@mkboth{\MakeUppercase\listtablename}{\MakeUppercase\listtablename}%
-			\pagenumbering{roman}                         % roman 페이지번호로 복원
-			\setcounter{page}{\value{pagemarker}}         % pagemarker에 저장된 값으로
-			\if@PDFdoc\phantomsection\fi\addcontentsline{toc}{content}{\listtablename}% 목차(TOC)에 추가
+			\pagenumbering{roman}                         % Restore to Roman numeral page numbering
+			\setcounter{page}{\value{pagemarker}}         % Set page counter using the value stored in pagemarker
+			\if@PDFdoc\phantomsection\fi\addcontentsline{toc}{content}{\listtablename}% Add to table of contents (TOC)
 			\@starttoc{lot}%
 			\if@restonecol\twocolumn\fi
-			\newpage \setcounter{pagemarker}{\value{page}}% pagemarker에 다시 저장
-			\pagenumbering{arabic}                        % arabic 페이지번호로 재시작
+			\newpage \setcounter{pagemarker}{\value{page}}% Store the page number again in pagemarker
+			\pagenumbering{arabic}                        % Restart page numbering in Arabic numerals
 		}
 		
 		%%
-		%% \listoffigures 재정의 - report 클래스로부터 복사하여 일부 수정
+		%% Redefine \listoffigures - copied from the report class and partially modified
 		%%
 		\renewcommand\listoffigures{%
 			\thispagestyle{plain}
@@ -1039,18 +1022,18 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\fi
 			\chapter*{\listfigurename}%
 			\@mkboth{\MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}%
-			\pagenumbering{roman}                         % roman 페이지번호로 복원
-			\setcounter{page}{\value{pagemarker}}         % pagemarker에 저장된 값으로
-			\if@PDFdoc\phantomsection\fi\addcontentsline{toc}{content}{\listfigurename}% 목차(TOC)에 추가
+			\pagenumbering{roman}                         % Restore to Roman numeral page numbering
+			\setcounter{page}{\value{pagemarker}}         % Set page counter using the value stored in pagemarker
+			\if@PDFdoc\phantomsection\fi\addcontentsline{toc}{content}{\listfigurename}% Add to table of contents (TOC)
 			\@starttoc{lof}%
 			\if@restonecol\twocolumn\fi
-			\label{paperlastromanpagelabel}     % <-- 추가 부분: 마지막 페이지 위치 지정
-			\newpage \setcounter{pagemarker}{\value{page}}% pagemarker에 다시 저장
-			\pagenumbering{arabic}                        % arabic 페이지번호로 재시작
+			\label{paperlastromanpagelabel}     % <-- Added part: specify the location of the last Roman numeral page label
+			\newpage \setcounter{pagemarker}{\value{page}}% Store the page number again in pagemarker
+			\pagenumbering{arabic}                        % Restart page numbering in Arabic numerals
 		}
 		
 		%%
-		%% 목차에 나오는 형식 - report 클래스로부터 복사하여 일부 수정
+		%% Format of entries in the table of contents - copied from the report class and partially modified
 		%%
 		
 		\newcommand{\l@content}{\large\bf\@dottedtocline{1}{0em}{0em}}
@@ -1059,10 +1042,10 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\ifnum \c@tocdepth >\m@ne
 			\addpenalty{-\@highpenalty}%
 			\vskip 1.0em \@plus\p@
-			\if@isKorean                     % <-- 변경 부분
-			\setlength\@tempdima{5.0em} % korean  옵션일 때는 5.0em
+			\if@isKorean                     % <-- Modified part
+			\setlength\@tempdima{5.0em} % When the korean option is selected, use 5.0em
 			\else
-			\setlength\@tempdima{6.5em} % english 옵션일 때는 1.5em
+			\setlength\@tempdima{6.5em} % When the english option is selected, use 6.5em
 			\fi
 			\begingroup
 			\parindent \z@ \rightskip \@pnumwidth
@@ -1076,16 +1059,16 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\fi}
 		
 		
-		\if@isKorean % 한글이면 각종 치수를 변경
+		\if@isKorean % If Korean, adjust various dimensions
 		\renewcommand*\l@section{\@dottedtocline{1}{2.7em}{2.3em}}
 		\renewcommand*\l@subsection{\@dottedtocline{2}{5.0em}{3.2em}}
 		\renewcommand*\l@subsubsection{\@dottedtocline{3}{8.2em}{4.1em}}
 		\renewcommand*\l@paragraph{\@dottedtocline{4}{11.2em}{5em}}
 		\renewcommand*\l@subparagraph{\@dottedtocline{5}{13.2em}{6em}}
-		\else \fi     % 영문이면 가만히 내버려둠
+		\else \fi     % If English, leave as is
 		
 		%%
-		%% thebibliography 환경 재정의 - report 클래스로부터 복사하여 일부 수정
+		%% Redefine thebibliography environment - copied from the report class and partially modified
 		%%
 		\renewenvironment{thebibliography}[1]{%
 			\chapter*{\bibname}%
@@ -1104,15 +1087,15 @@ pdfpagelabels, %HOCHEOL MODIFIED
 			\@clubpenalty \clubpenalty
 			\widowpenalty4000%
 			\sfcode`\.\@m%
-		}{  %% \label{paperlastpagelabel}    %  <-- 추가 부분: 마지막 페이지 위치 지정
+		}{  %% \label{paperlastpagelabel}    % <-- Added part: specify the location of the last page
 		\def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
 		\endlist
 	}
 	
 	%%
-	%% 한국식 날짜 표기 -> 영문식 날짜 표기
+	%% Korean date format -> US English date format
 	%%
-	\newcommand{\@dateUSenglish}[3]{%  % 미국식 날짜 표기
+	\newcommand{\@dateUSenglish}[3]{%  % US English date format
 		\newcommand{\@year}{#1}%
 		\newcommand{\@month}{#2}%
 		\newcommand{\@day}{#3}%
@@ -1121,7 +1104,7 @@ pdfpagelabels, %HOCHEOL MODIFIED
 		July \or August \or September \or October \or November \or December \fi
 		\@day, \@year
 	}
-	\newcommand{\@dateBRenglish}[3]{%  % 영국식 날짜 표기
+	\newcommand{\@dateBRenglish}[3]{%  % British English date format
 		\newcommand{\@year}{#1}%
 		\newcommand{\@month}{#2}%
 		\newcommand{\@day}{#3}%
